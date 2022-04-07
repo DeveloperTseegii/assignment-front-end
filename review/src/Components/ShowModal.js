@@ -1,10 +1,33 @@
+import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { Modal, Form } from "react-bootstrap";
 
 function ShowModal(props) {
-  const handleSubmit = () => {
-    console.log("submitted");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    fetch(`http://localhost:3000/api/createBooks`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        name: e.target[0].value,
+        code: e.target[1].value,
+        price: e.target[2].value,
+        author: e.target[3].value,
+        isbn: e.target[4].value,
+        publisher: e.target[5].value,
+        publishedOn: e.target[6].value,
+      }),
+    })
+      .then((res) => {
+        res.json();
+      })
+      .then((res) => {
+        console.log(res);
+      });
   };
+
   return (
     <div className="modal">
       <Modal
@@ -17,30 +40,30 @@ function ShowModal(props) {
           <Modal.Title id="contained-modal-title-vcenter">Add book</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formGroupEmail">
-              <Form.Control placeholder="Name" />
+              <Form.Control type="text" placeholder="Name" />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formGroupPassword">
-              <Form.Control placeholder="Code" />
+              <Form.Control type="text" placeholder="Code" />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formGroupPassword">
-              <Form.Control placeholder="Price" />
+              <Form.Control type="number" placeholder="Price" />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formGroupPassword">
-              <Form.Control placeholder="Author" />
+              <Form.Control type="text" placeholder="Author" />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formGroupPassword">
-              <Form.Control placeholder="ISBN" />
+              <Form.Control type="number" placeholder="ISBN" />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formGroupPassword">
-              <Form.Control placeholder="Publisher" />
+              <Form.Control type="text" placeholder="Publisher" />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formGroupPassword">
-              <Form.Control placeholder="Published On" />
+              <Form.Control type="date" placeholder="Published On" />
             </Form.Group>
-            <Button className="button-style" onClick={handleSubmit}>
-              Save
+            <Button className="button-style" type="submit">
+              Ном нэмэх
             </Button>
           </Form>
         </Modal.Body>
