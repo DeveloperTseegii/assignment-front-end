@@ -5,9 +5,10 @@ import { useState } from "react";
 import EditModal from "./EditModal";
 import { Button, Form, Modal } from "react-bootstrap";
 
-function Board() {
+function Board(props) {
+  console.log(props);
   const [books, setBooks] = useState([]);
-  const [deleteBook, setDeleteBook] = useState(false);
+  const [deleteRender, setDeleteRender] = props.render;
   const [comfigDelete, setComfigDelete] = useState(false);
   const [idToDel, setIdToDel] = useState("");
   useEffect(() => {
@@ -22,11 +23,9 @@ function Board() {
       .then((res) => {
         setBooks(res.data);
       });
-  }, [deleteBook]);
+  }, [props.render]);
 
   const handleDelete = () => {
-    setDeleteBook(false);
-
     fetch(`http://localhost:3000/api/deleteBooks/id/${idToDel}`, {
       method: "DELETE",
       headers: {
@@ -37,7 +36,7 @@ function Board() {
       .then((data) => data.json(data))
       .then((res) => {
         console.log(res);
-        setDeleteBook(true);
+        setDeleteRender(!deleteRender);
         setComfigDelete(false);
       });
   };
@@ -72,10 +71,7 @@ function Board() {
                   <td>{i.publisher}</td>
                   <td>{i.published_date.slice(0, 10)}</td>
                   <td className="icon">
-                    <EditModal
-                      data={i}
-                      onRender={[deleteBook, setDeleteBook]}
-                    />
+                    <EditModal data={i} onRender={props.render} />
                   </td>
                   <td
                     className="icon"

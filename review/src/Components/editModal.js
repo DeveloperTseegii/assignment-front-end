@@ -5,7 +5,7 @@ import { Modal, Form } from "react-bootstrap";
 function EditModal(props) {
   const [handleModal, setHandleModal] = useState(false);
   const hide = () => setHandleModal(false);
-  const [rendered, setRendered] = props.onRender;
+  const [editRender, setEditRender] = props.onRender;
   console.log(props.onRender);
   const handleEdit = (e) => {
     e.preventDefault();
@@ -31,7 +31,7 @@ function EditModal(props) {
         console.log(res);
         hide();
       })
-      .finally(() => setRendered(!rendered));
+      .finally(() => setEditRender(!editRender));
   };
   return (
     <>

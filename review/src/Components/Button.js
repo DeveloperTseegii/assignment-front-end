@@ -3,7 +3,7 @@ import "../css/Button.css";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 
-function Buttons() {
+function Buttons(props) {
   const [modalShow, setModalShow] = useState(false);
   return (
     <>
@@ -13,7 +13,11 @@ function Buttons() {
         </Button>
       </div>
 
-      <ShowModal show={modalShow} onHide={() => setModalShow(false)} />
+      <ShowModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        switch={props.onRendered}
+      />
     </>
   );
 }
