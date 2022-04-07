@@ -72,7 +72,10 @@ function Board() {
                   <td>{i.publisher}</td>
                   <td>{i.published_date.slice(0, 10)}</td>
                   <td className="icon">
-                    <EditModal data={i} />
+                    <EditModal
+                      data={i}
+                      onRender={[deleteBook, setDeleteBook]}
+                    />
                   </td>
                   <td
                     className="icon"

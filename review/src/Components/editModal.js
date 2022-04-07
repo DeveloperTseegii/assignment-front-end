@@ -1,15 +1,20 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { Modal, Form } from "react-bootstrap";
 
 function EditModal(props) {
   const [handleModal, setHandleModal] = useState(false);
   const hide = () => setHandleModal(false);
+  const [rendered, setRendered] = props.onRender;
+  console.log(props.onRender);
   const handleEdit = (e) => {
+    e.preventDefault();
+
+    console.log(e.target[0].value);
     fetch(`http://localhost:3000/api/updateBooks/id/${props.data._id}`, {
       method: "PUT",
       headers: {
-        "content-type": "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         name: e.target[0].value,
@@ -25,7 +30,8 @@ function EditModal(props) {
       .then((res) => {
         console.log(res);
         hide();
-      });
+      })
+      .finally(() => setRendered(!rendered));
   };
   return (
     <>

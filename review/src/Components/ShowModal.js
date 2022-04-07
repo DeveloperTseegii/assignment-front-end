@@ -1,14 +1,14 @@
-import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { Modal, Form } from "react-bootstrap";
 
 function ShowModal(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch(`http://localhost:3000/api/createBooks`, {
+    console.log(e.target[0].value);
+    fetch("http://localhost:3000/api/createBooks", {
       method: "POST",
       headers: {
-        "content-type": "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         name: e.target[0].value,
@@ -17,12 +17,10 @@ function ShowModal(props) {
         author: e.target[3].value,
         isbn: e.target[4].value,
         publisher: e.target[5].value,
-        publishedOn: e.target[6].value,
+        published_date: e.target[6].value,
       }),
     })
-      .then((res) => {
-        res.json();
-      })
+      .then((res) => res.json())
       .then((res) => {
         console.log(res);
       });
@@ -62,7 +60,11 @@ function ShowModal(props) {
             <Form.Group className="mb-3" controlId="formGroupPassword">
               <Form.Control type="date" placeholder="Published On" />
             </Form.Group>
-            <Button className="button-style" type="submit">
+            <Button
+              className="button-style"
+              onClick={props.onHide}
+              type="submit"
+            >
               Ном нэмэх
             </Button>
           </Form>
