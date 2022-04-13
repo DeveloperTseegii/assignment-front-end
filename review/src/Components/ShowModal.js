@@ -3,7 +3,6 @@ import { Modal, Form } from "react-bootstrap";
 import { useState } from "react";
 
 function ShowModal(props) {
-  const [hideRender, setHideRender] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(e.target[0].value);
@@ -25,7 +24,6 @@ function ShowModal(props) {
       .then((res) => res.json())
       .then((res) => {
         props.switch(true);
-        setHideRender(true);
       });
   };
 
