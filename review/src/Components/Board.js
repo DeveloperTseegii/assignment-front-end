@@ -12,7 +12,7 @@ function Board(props) {
   const [comfigDelete, setComfigDelete] = useState(false);
   const [idToDel, setIdToDel] = useState("");
   useEffect(() => {
-    fetch("http://localhost:3000/api/books", {
+    fetch("http://54.251.194.43:3002/api/books", {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -26,7 +26,7 @@ function Board(props) {
   }, [props.render]);
 
   const handleDelete = () => {
-    fetch(`http://localhost:3000/api/deleteBooks/id/${idToDel}`, {
+    fetch(`http://54.251.194.43:3002/api/deleteBooks/id/${idToDel}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
